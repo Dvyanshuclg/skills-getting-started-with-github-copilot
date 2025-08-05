@@ -12,6 +12,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Clear loading message
       activitiesList.innerHTML = "";
+      // Clear previous options except the first default one
+      while (activitySelect.options.length > 1) {
+        activitySelect.remove(1);
+      }
 
       // Populate activities list
       Object.entries(activities).forEach(([name, details]) => {
@@ -22,15 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Create participants list HTML
         const participantsList = details.participants.length > 0 
-          ? `<div class="participants-section">
-               <h5>Current Participants:</h5>
-               <ul class="participants-list">
-                 ${details.participants.map(email => `<li>${email}</li>`).join('')}
-               </ul>
-             </div>`
-          : `<div class="participants-section">
-               <p class="no-participants">No participants yet - be the first to join!</p>
-             </div>`;
+          ? `<div class=\"participants-section\">\n               <h5>Current Participants:</h5>\n               <ul class=\"participants-list\">\n                 ${details.participants.map(email => `<li>${email}</li>`).join('')}\n               </ul>\n             </div>`
+          : `<div class=\"participants-section\">\n               <p class=\"no-participants\">No participants yet - be the first to join!</p>\n             </div>`;
 
         activityCard.innerHTML = `
           <h4>${name}</h4>
